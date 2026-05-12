@@ -21,21 +21,11 @@ import com.green.paging.mapper.BoardPagingMapper;
 @RequestMapping("/BoardPaging")
 public class BoardPagingController {
 
-    private final BoardApplication boardApplication;
-
-    private final AuthInterceptor authInterceptor;
-
 	@Autowired
 	private  MenuMapper         menuMapper;
 	
 	@Autowired
 	private  BoardPagingMapper  boardPagingMapper;
-
-
-    BoardPagingController(AuthInterceptor authInterceptor, BoardApplication boardApplication) {
-        this.authInterceptor = authInterceptor;
-        this.boardApplication = boardApplication;
-    } 
 
 	
 	// /BoardPaging/List?menu_id=MENU01&nowpage=1
@@ -51,19 +41,21 @@ public class BoardPagingController {
 		int            totalCount    =  boardPagingMapper.count( boardDto );  // menu_id
 		System.out.println("totalCount:" + totalCount);
 		
+		/*
 		PagingResponse<BoardDto>  response = null;
 		if( totalCount < 1  ) { // 현재 Menu_id 로 조회한 자료가 없다면
 			response = new PagingResponse<>(
 				Collections.emptyList(), null);
 			// Collections.emptyList() : 자료가 없는 빈 리스트를 채운다
-		}   
+		} 
+		*/  
 		
 		// 페이징을 위한 초기설정
 		SearchDto   searchDto   =  new  SearchDto();
 		searchDto.setPageNo( nowpage );  // 현재 페이지 정보
 		searchDto.setNumOfRows(10);      // 한페이지에 출력될 자료수
 		searchDto.setPageSize(10);       
-		  // paging.jsp 에 한줄에 출력될 페이지 번호 수 : 처음 이전 1 2 3 ... 10 다음 마지막
+		// paging.jsp 에 한줄에 출력될 페이지 번호 수 : 처음 이전 1 2 3 ... 10 다음 마지막
 		
 		// Pagination 설정
 		Pagination   pagination  =  new Pagination(totalCount, searchDto);
@@ -85,9 +77,6 @@ public class BoardPagingController {
 			menu_id, title, writer, content,  keyword, offset, numOfRows	); */
 		List<BoardDto>  list = boardPagingMapper.getBoardPagingList(
 			menu_id, searchType, keyword, offset, numOfRows	); 
-		response   = new PagingResponse<>(list, pagination);
-		
-		System.out.println(response);
 		
 		ModelAndView   mv       =  new ModelAndView();
 		mv.setViewName("boardpaging/list");	

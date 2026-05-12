@@ -19,6 +19,7 @@
 	<select  id="getBoardPagingList">
 	 SELECT
 	     IDX,
+	     MENU_ID,
 	     TITLE,
 	     WRITER,
 	     TO_CHAR(REGDATE, 'YYYY-MM-DD') REGDATE,
@@ -36,7 +37,7 @@
 	   
 	  </where>
 	  ORDER  BY  IDX  DESC
-	  OFFSET  #{ offset }  ROWS  FETCH  NEXT  #{ numOfRows }  ROWS ONLY  
+	  OFFSET  #{ offset }  ROWS  FETCH  NEXT  #{ numOfRows }  ROWS ONLY
 	      
 	
 	

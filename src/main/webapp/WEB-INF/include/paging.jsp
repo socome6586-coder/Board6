@@ -10,6 +10,7 @@
  <div id="paging">
   <table>
     <tr>
+    <!-- 처음/이전 -->
      <c:if test="${ startnum gt 1 }">
       <td>
         <a href="/BoardPaging/List?menu_id=${menu_id}&nowpage=1"> 처음 </a>
@@ -21,7 +22,7 @@
     
       <c:forEach var="pagenum" begin="${startnum}" end="${endnum}" step="1">
         <td>
-          <a href="/BoardPaging/List?menu_id=${menu_id}&nowpage=${pagenum}"">
+          <a href="/BoardPaging/List?menu_id=${menu_id}&nowpage=${pagenum}">
           ${ pagenum }
           </a>
         </td>
@@ -35,20 +36,9 @@
       <td>
         <a href="/BoardPaging/List?menu_id=${menu_id}&nowpage=${totalpagecount}"> 마지막 </a>
       </td>
-     </c:if>  
-      
+     </c:if>
+     
     </tr>
-  </table> 
- </div>   
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+  </table>
+ </div>
  

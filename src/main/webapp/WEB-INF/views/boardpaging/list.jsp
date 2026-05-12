@@ -105,7 +105,7 @@
 	  </table>	
 	  
 	  
-	  <form action="/BoardPaging/List" >
+	  <form action="/BoardPaging/List" method="get">
 	  <input type="hidden" name="menu_id" value="${ menu_id }" />	  
 	  <input type="hidden" name="nowpage" value="${ nowpage }" />	  
 	  <div id="search">

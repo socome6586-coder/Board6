@@ -55,6 +55,10 @@ CREATE TABLE   TUSER (
     , REGDATE    DATE           DEFAULT   SYSDATE
 );
 
+INSERT INTO TUSER VALUES ('admin', '1234', '관리자', 'admin@green.com', 1000, sysdate);
+INSERT INTO TUSER VALUES ('sky12', '1234', '고객1', 'admin@green.com', 1000, sysdate);
+COMMIT;
+
 --------------------------------------------
 -- 멀티 게시판 정보
 
