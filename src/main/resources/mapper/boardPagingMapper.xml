@@ -10,9 +10,16 @@
 	    COUNT( IDX ) AS CNT
 	FROM
 	    BOARD
-	WHERE
-	    MENU_ID = #{ menu_id  }
-	    
+	  <where>
+	    <if test="boardDto.menu_id != null and boardDto.menu_id != ''">
+	      AND MENU_ID = #{ boardDto.menu_id }   
+	    </if> 
+	    <if test="searchType != null and searchType != '' 
+	        and keyword != null and keyword != ''">
+	      AND ${searchType}  Like '%' || #{ keyword } || '%'   
+	    </if> 
+	   
+	  </where>
 	</select>
 	
 	<!-- BoardPagingList -->
