@@ -98,7 +98,7 @@
 	    <tr>
 	      <td> ${  board.idx      }  </td>    <!-- menu.getMenu_id() -->
 	      <td class="title"> 
-	        <a href ="/Board/View?idx=${board.idx}&menu_id=${menu_id}">
+	        <a href ="/BoardPaging/View?idx=${board.idx}&menu_id=${menu_id}&nowpage=${nowpage}">
 	        ${ board.title    }
 	        </a>  
 	      </td>

@@ -9,6 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.green.BoardApplication;
 import com.green.board.dto.BoardDto;
+import com.green.board.mapper.BoardMapper;
+import com.green.config.WebMvcConfig;
 import com.green.interceptor.AuthInterceptor;
 import com.green.menus.dto.MenuDTO;
 import com.green.menus.mapper.MenuMapper;
@@ -20,11 +22,18 @@ import com.green.paging.mapper.BoardPagingMapper;
 @RequestMapping("/BoardPaging")
 public class BoardPagingController {
 
+    private final WebMvcConfig webMvcConfig;
+
 	@Autowired
 	private  MenuMapper         menuMapper;
 	
 	@Autowired
 	private  BoardPagingMapper  boardPagingMapper;
+
+
+    BoardPagingController(WebMvcConfig webMvcConfig) {
+        this.webMvcConfig = webMvcConfig;
+    }
 
 	
 	// /BoardPaging/List?menu_id=MENU01&nowpage=1
@@ -36,7 +45,7 @@ public class BoardPagingController {
 		List<MenuDTO>  menuList =  menuMapper.getMenuList();
 		
 		// 게시물 목록 조회(페이징해서)
-		// 해당 메뉴의 자료갯수 : 
+		// 해당 메뉴의 자료갯수 : 조회 된
 		int            totalCount    =  boardPagingMapper.count( boardDto, searchType, keyword );  // menu_id
 		System.out.println("totalCount:" + totalCount);
 		
@@ -79,6 +88,28 @@ public class BoardPagingController {
 		
 		return  mv;		
 	}
+		// /View?idx=203&menu_id=MENU01&nowpage=
+		@RequestMapping("/View") 
+		public ModelAndView view(BoardDto boardDto, int nowpage) {
+
+			// 메뉴 목록 조회
+			List<MenuDTO> menuList = menuMapper.getMenuList();
+			
+			// idx 로 게시글 한 개를 조회
+			BoardDto board = boardPagingMapper.getBoard(boardDto);
+			
+			String menu_id = boardDto.getMenu_id();
+			
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("boardpaging/view");
+			mv.addObject("menulist", menuList);
+			
+			mv.addObject("menu_id", menu_id);
+			mv.addObject("nowpage", nowpage);
+			mv.addObject("board", board);
+			return mv;
+		}
+	
 	
 	// /BoardPaging/WriteForm?menu_id=MENU01&nowpage=1
 	
