@@ -112,5 +112,51 @@ public class BoardPagingController {
 	
 	
 	// /BoardPaging/WriteForm?menu_id=MENU01&nowpage=1
-	
+		@RequestMapping("/WriteForm")
+		public ModelAndView writeForm(BoardDto boardDto, int nowpage) {
+			
+			// idx 에 해당하는 게시글 조회수 1증가
+			boardPagingMapper.incHit(boardDto);
+			
+			// 메뉴 목록 조회
+			List<MenuDTO> menuList = menuMapper.getMenuList();
+			
+			BoardDto board = boardPagingMapper.getBoard(boardDto);
+			
+			String menu_id = boardDto.getMenu_id();
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("boardpaging/write");
+			mv.addObject("menuList", menuList);
+			mv.addObject("menu_id", menu_id);
+			mv.addObject("nowpage", nowpage);
+			
+			return mv;
+		}
+		
+		// //BoardPaging/Write
+		// db에 저장 : menu_id=MENU01, title=제목, writer=user01, content=내용
+		// 돌아가기 위해 필요한 변수 : menu_id=MENU01, nowpage=1 
+		@RequestMapping("/Write")
+		public ModelAndView write(BoardDto boardDto, int nowpage) {
+			
+			// 새 글 저장 -> db 저장
+			boardPagingMapper.insertBoard(boardDto); 
+			
+			String menu_id = boardDto.getMenu_id();
+			
+			// 목록으로 돌아가기
+			ModelAndView mv = new ModelAndView();
+			String fmt = "redirect:/BoardPaging/List?menu_id=%s&nowpage=%d";
+			String loc = String.format(fmt, menu_id, nowpage);
+			mv.setViewName(loc);
+			return mv;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
 }

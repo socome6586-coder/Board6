@@ -17,4 +17,8 @@ public interface BoardPagingMapper {
 
 	BoardDto getBoard(BoardDto boardDto);
 
+	void insertBoard(BoardDto boardDto);
+
+	void incHit(BoardDto boardDto);
+
 }
