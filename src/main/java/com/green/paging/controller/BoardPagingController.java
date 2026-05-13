@@ -152,7 +152,24 @@ public class BoardPagingController {
 			return mv;
 		}
 		
-		
+		// /BoardPaging/Delete?
+		@RequestMapping("/Delete")
+		public ModelAndView delete(BoardDto boardDto, int nowpage) {
+			
+			//idx 로 board 삭제
+			boardPagingMapper.deleteBoard(boardDto);
+			
+			// 삭제 후 목록으로 이동
+			String menu_id  = boardDto.getMenu_id();
+			ModelAndView mv = new ModelAndView();
+			String loc      = """
+					redirect:/BoardPaging/List?menu_id=%nowpage=%d
+					""".formatted(menu_id, nowpage);
+			
+			mv.setViewName(loc);
+			
+			return mv;
+		}
 		
 		
 		

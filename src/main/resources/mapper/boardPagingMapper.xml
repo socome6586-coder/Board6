@@ -88,6 +88,13 @@
 	 WHERE  IDX = #{ idx } 
 	</update>
 	
+	<!-- 게시글 삭제 -->
+	<delete id="deleteBoard">
+	DELETE
+	FROM   BOARD
+	WHERE  IDX = #{idx}
+	</delete>
+	
 </mapper>
 
 

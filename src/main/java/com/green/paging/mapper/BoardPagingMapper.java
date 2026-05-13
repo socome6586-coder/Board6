@@ -21,4 +21,6 @@ public interface BoardPagingMapper {
 
 	void incHit(BoardDto boardDto);
 
+	void deleteBoard(BoardDto boardDto);
+
 }
